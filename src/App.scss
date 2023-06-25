@@ -1,0 +1,29 @@
+$primary-color: #db4c3f;
+$gray: rgb(234, 234, 234);
+
+body {
+	background-color: wheat;
+}
+
+.container {
+	display: grid;
+	grid-template-rows: 50px calc(100vh - 50px);
+	grid-template-columns: 200px calc(100vw - 200px);
+}
+
+.header {
+	background-color: $primary-color;
+	grid-column: 1/-1;
+	grid-row: 1/2;
+}
+
+.sidebar {
+	grid-row: 2/3;
+	grid-column: 1/2;
+	background-color: aquamarine;
+}
+
+.content {
+	grid-row: 2/3;
+	grid-column: 2/3;
+}
