@@ -1,5 +1,7 @@
 $primary-color: #db4c3f;
 $gray: rgb(234, 234, 234);
+$sidebar-width: 300px;
+$header-height: 44px;
 
 body {
 	background-color: wheat;
@@ -7,14 +9,27 @@ body {
 
 .container {
 	display: grid;
-	grid-template-rows: 50px calc(100vh - 50px);
-	grid-template-columns: 200px calc(100vw - 200px);
+	grid-template-rows: $header-height calc(100vh - $header-height);
+	grid-template-columns: $sidebar-width calc(100vw - $sidebar-width);
 }
 
 .header {
 	background-color: $primary-color;
 	grid-column: 1/-1;
 	grid-row: 1/2;
+    color: $gray;
+
+    // content
+    display: flex;
+    align-items: center;
+    gap: 20px;
+       padding: 0.5rem 2rem;
+
+    & > span {
+        display: flex;
+        cursor: pointer;
+        font-size: 24px;
+    }
 }
 
 .sidebar {
