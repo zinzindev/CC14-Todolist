@@ -1,10 +1,14 @@
-$primary-color: #db4c3f;
-$gray: rgb(234, 234, 234);
+$primary-color: #d34936;
+$gray: #f5f5f5;
 $sidebar-width: 300px;
 $header-height: 44px;
 
 body {
-	background-color: wheat;
+	background-color: white;
+}
+
+li {
+	list-style: none;
 }
 
 .container {
@@ -17,25 +21,77 @@ body {
 	background-color: $primary-color;
 	grid-column: 1/-1;
 	grid-row: 1/2;
-    color: $gray;
+	color: $gray;
 
-    // content
-    display: flex;
-    align-items: center;
-    gap: 20px;
-       padding: 0.5rem 2rem;
+	// content
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	padding: 0.5rem 2rem;
 
-    & > span {
-        display: flex;
-        cursor: pointer;
-        font-size: 24px;
-    }
+	& > span {
+		display: flex;
+		cursor: pointer;
+		font-size: 24px;
+	}
 }
 
 .sidebar {
 	grid-row: 2/3;
 	grid-column: 1/2;
-	background-color: aquamarine;
+	background-color: $gray;
+	position: sticky;
+
+	// Inside cotent
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 20px 30px;
+
+    &__middle {
+        display: flex;
+        gap: 10px;
+        font-size: 20px;
+        align-items: center;
+        margin: 2px 0;
+		padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+			background-color: lightgrey;
+		}
+
+        & > span {
+            display: flex;
+        }
+    }
+}
+
+.generic__lists,
+.project__lists {
+	& > li {
+		display: flex;
+		align-items: center;
+		gap: 15px;
+		font-size: 20px;
+		cursor: pointer;
+		margin: 2px 0;
+		padding: 10px;
+        border-radius: 4px;
+
+		&:hover {
+			background-color: lightgrey;
+		}
+
+		& > span {
+			display: flex;
+		}
+	}
+}
+
+.active {
+	background-color: lightgray;
 }
 
 .content {
