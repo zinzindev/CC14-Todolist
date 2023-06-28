@@ -57,7 +57,7 @@ li {
 		cursor: pointer;
 
 		&:hover {
-			background-color: lightgrey;
+			background-color: rgb(234, 234, 234);
 		}
 
 		& > span {
@@ -79,7 +79,7 @@ li {
 		border-radius: 4px;
 
 		&:hover {
-			background-color: lightgrey;
+			background-color: rgb(234, 234, 234);
 		}
 
 		& > span {
@@ -93,7 +93,7 @@ li {
 }
 
 .active {
-	background-color: lightgray;
+	background-color: rgb(234, 234, 234);
 }
 
 .content {
