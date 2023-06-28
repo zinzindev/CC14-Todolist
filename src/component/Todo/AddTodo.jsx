@@ -1,18 +1,25 @@
-import styles from './AddTodo.module.scss';
+import { useState } from 'react';
 import { TodoForm } from './TodoForm';
-
+import styles from './AddTodo.module.scss';
 
 export function AddTodo() {
+	// Logic & State
+	const [isAddMode, setIsAddMode] = useState(false);
+
+	const handleClikAddTasks = () => {
+		setIsAddMode(true);
+	};
+
 	return (
 		<>
-			{/* Add Todo */}
-			<div className={styles.add__todo}>
-				<span>+</span>
-				<h3>Add Task</h3>
-			</div>
-
-			{/* Todo Form */}
-			<TodoForm />
+			{!isAddMode ? (
+				<div className={styles.add__todo} onClick={handleClikAddTasks}>
+					<span>+</span>
+					<h3>Add Task</h3>
+				</div>
+			) : (
+				<TodoForm onSetIsAddMode={setIsAddMode} />
+			)}
 		</>
 	);
 }

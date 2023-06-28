@@ -1,20 +1,22 @@
 import { useState } from 'react';
 import styles from './TodoForm.module.scss';
 
-export function TodoForm() {
+export function TodoForm({ onSetIsAddMode }) {
 	// #1: Logic-Section
 	const [task, setTask] = useState('');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log('Submit');
+		// จบ AddMode
+		onSetIsAddMode(false);
 	};
 	const handleClickCancel = (e) => {
 		console.log('Cancel');
+		onSetIsAddMode(false);
 	};
 
 	const handleChange = (e) => {
-		console.log(e.target.value);
 		setTask(e.target.value);
 	};
 
