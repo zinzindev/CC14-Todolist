@@ -42,11 +42,12 @@ $grey: rgb(234, 234, 234);
 }
 
 // effect ติ้กถูกตอน hover ที่ <li>
-.checkbox__container:hover {
-	& > .checkbox__icon {
-		display: inline;
-	}
-}
+
+// .checkbox__container:hover {
+// 	& > .checkbox__icon {
+// 		display: inline;
+// 	}
+// }
 
 .edit__icon,
 .delete__icon {

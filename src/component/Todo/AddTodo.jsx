@@ -18,7 +18,10 @@ export function AddTodo() {
 					<h3>Add Task</h3>
 				</div>
 			) : (
-				<TodoForm onSetIsAddMode={setIsAddMode} />
+				<TodoForm
+					submitText={'Added task'}
+					onSetIsShowForm={setIsAddMode}
+				/>
 			)}
 		</>
 	);
