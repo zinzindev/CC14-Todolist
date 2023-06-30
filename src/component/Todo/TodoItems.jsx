@@ -3,7 +3,7 @@ import { HiCheck, HiPencil, HiTrash } from 'react-icons/hi';
 import styles from './TodoItems.module.scss';
 import { TodoForm } from './TodoForm';
 
-export function TodoItems({todo}) {
+export function TodoItems({todo }) {
 	// State, Logic
     	//  Check === Done === todo.status == true
 	const [isCheck, setIsCheck] = useState(todo.status);

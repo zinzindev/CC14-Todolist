@@ -9,7 +9,7 @@ export function TodoContent() {
 	// logic
 	const [todos, setTodos] = useState(mockData);
 
-	const handleAddTodo = () => {
+	const handleAddTodo = (newTask) => {
 		// มี new todo
 			// let newTodoObj1 = {
 			// 	id: crypto.randomUUID(),
@@ -19,7 +19,7 @@ export function TodoContent() {
 			// };
 		let newTodoObj = {
 			id: uuidv4(),
-			task: 'DoHw',
+			task: newTask,
 			status: false,
 			due_date: '',
 		};
@@ -28,7 +28,7 @@ export function TodoContent() {
 		// update state โดย new state
 		// const newTodos = [newTodoObj, ...todos];
 		// setTodos(newTodos);
-
+ 
 		// update state โดย callback
 		setTodos((currentState) => [newTodoObj, ...currentState]);
 	};
@@ -37,8 +37,7 @@ export function TodoContent() {
 	return (
 		<main className='content'>
 			<TodoHeader />
-			<AddTodo />
-			<button onClick={handleAddTodo}>Test Add Todo</button>
+			<AddTodo onAddTodo={handleAddTodo} />
 			<TodoLists todos={todos} />
 		</main>
 	);

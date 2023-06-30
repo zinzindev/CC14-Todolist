@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './TodoForm.module.scss';
 
-export function TodoForm({ onSetIsShowForm, submitText, oldTask }) {
+export function TodoForm({ onSetIsShowForm, submitText, oldTask, onAddTodo }) {
 	// #1: Logic-Section
 	const [task, setTask] = useState(oldTask || '');
 	const [isError, setIsError] = useState(false);
@@ -12,6 +12,9 @@ export function TodoForm({ onSetIsShowForm, submitText, oldTask }) {
 		if (task.trim() === '') {
 			setIsError(true);
 			return;
+		} else {
+			// validate passed, execute addTodo
+			onAddTodo(task); // from <TodoContent />
 		}
 
 		// จบ AddMode
