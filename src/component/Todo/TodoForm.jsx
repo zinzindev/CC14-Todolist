@@ -1,6 +1,18 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import styles from './TodoForm.module.scss';
 
+TodoForm.propTypes = {
+	submitText: PropTypes.string.isRequired,
+	onSetIsShowForm: PropTypes.func.isRequired,
+	onAddTodo: PropTypes.func,
+	onEditTodo: PropTypes.func,
+	todo: PropTypes.oneOfType([PropTypes.object]),
+};
+
+// TodoFrom => call in 2 Mode
+// Mode-1: Add
+// Mode-2: Edit
 export function TodoForm({ onSetIsShowForm, submitText, todo, onAddTodo, onEditTodo }) {
 	// #1: Logic-Section
 	/* The line `const [task, setTask] = useState(todo?.task || '');` is using the `useState` hook to
@@ -19,7 +31,8 @@ export function TodoForm({ onSetIsShowForm, submitText, todo, onAddTodo, onEditT
 		// case 2B : valid-update
 		if (task.trim() === '') {
 			setIsError(true);
-			return;}
+			return;
+		}
 		// validate passed, execute addTodo
 
 		// onAddTodo(task); // from <TodoContent />
