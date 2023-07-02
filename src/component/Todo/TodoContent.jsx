@@ -17,12 +17,7 @@ export function TodoContent() {
 		// 	status: false,
 		// 	due_date: '',
 		// };
-		let newTodoObj = {
-			id: uuidv4(),
-			task: newTask,
-			status: false,
-			due_date: '',
-		};
+		let newTodoObj = { id: uuidv4(), task: newTask, status: false, due_date: '' };
 
 		// สร้าง State ใหม่
 		// update state โดย new state
@@ -33,32 +28,47 @@ export function TodoContent() {
 		setTodos((currentState) => [newTodoObj, ...currentState]);
 	};
 
-	const handleEditTodo = (todoId, newTask) => {
-		console.log('##', todoId, newTask);
-
+	// UPDATE-TODO
+	// updatevalue = {}
+	const handleEditTodo = (todoId, updateObj) => {
+		console.log({ ...updateObj });
 		//  Modify Array
 		// #1 Findindex
-		const foundedIndex = todos.findIndex(
-			(todoObj) => todoObj.id === todoId
-		);
+		const foundedIndex = todos.findIndex((todoObj) => todoObj.id === todoId);
 
 		// Not founded
 		if (foundedIndex === -1) return;
 
 		// Founded
-		const newTodos = [...todos]
+		const newTodos = [...todos];
 		//  let oldTodoObj= newTodos[foundIndex];
 		// oldTodoObj.task = newTask;
-		newTodos[foundedIndex] = {...newTodos[foundedIndex], task: newTask}
+		newTodos[foundedIndex] = { ...newTodos[foundedIndex], ...updateObj };
 		setTodos(newTodos);
+	};
+
+	const handleDelete = (todoId) => {
+		// Logic: Manipulate Array
+
+		// # 1
+		// const foundedIndex = todos.findIndex((todoObj) => todoObj.id === todoId);
+		// if (foundedIndex === -1) return;
+
+		// const newTodos = [...todos];
+		// newTodos.splice(foundedIndex, 1);
+
+		// setTodos(newTodos);
+
+		// # 2
+		setTodos((curr) => curr.filter((todoObj) => todoObj.id !== todoId));
 	};
 
 	// ui
 	return (
-		<main className='content'>
+		<main className='content'> 
 			<TodoHeader />
 			<AddTodo onAddTodo={handleAddTodo} />
-			<TodoLists todos={todos} onEditTodo={handleEditTodo} />
+			<TodoLists todos  ={todos} onEditTodo={handleEditTodo} onDeleteTodo={handleDelete} />
 		</main>
 	);
 }
