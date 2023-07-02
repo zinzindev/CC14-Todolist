@@ -1,14 +1,11 @@
 import styles from './TodoHeader.module.scss';
+import { getFormatDate } from '../../utils/DateUtils';
 
 export function TodoHeader() {
-	const now = new Date();
-	const options = { weekday: 'short', month: 'short', day: 'numeric' };
-	const date = now.toLocaleDateString('en-US', options);
-
 	return (
 		<div className={styles.header}>
 			<h1>Inbox</h1>
-			<p>{date}</p>
+			<p>{getFormatDate(Date.now())}</p>
 		</div>
 	);
 }
