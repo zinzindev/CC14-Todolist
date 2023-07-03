@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Header } from './component/Header';
 import { Sidebar } from './component/Sidebar';
 import { TodoContent } from './component/Todo/TodoContent';
+import { getSevenDayRange } from './utils/DateUtils';
 import mockData from './data/todos.json';
 import './App.scss';
 
@@ -9,27 +10,22 @@ function App() {
 	const [todos, setTodos] = useState(mockData);
 
 	// Filter Todo
+
 	const handleFilterLists = (index) => {
-		console.log('selected', index);
+		// index == 0 : All
+		// index == 1 : today
+		// index == 2 : next 7
+
+		const [nowStr, nextSevenDayStr] = getSevenDayRange();
+		let filteredTodo = [...mockData];
 
 		//FILTER LOGIC: Schemo for fillter '2023-04-29' == YYYY-MM-DD
-		if (index === 0) setTodos(mockData); // mockData === All todo
-		else if (index === 1) {
-			const nowObj = new Date();
-			const nowStr = nowObj.toISOString().slice(0, 10); // Today
-
-			const filterTodo = todos.filter((todoObj) => todoObj.due_date === nowStr);
-			setTodos(filterTodo);
+		if (index === 1) {
+			filteredTodo = mockData.filter((todoObj) => todoObj.due_date === nowStr);
 		} else if (index === 2) {
-			const nowObj = new Date();
-			const nowStr = nowObj.toISOString().slice(0, 10); // Today
-
-			const nextSevenDayObj = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-			const nextSevenDayStr = nextSevenDayObj.toISOString().slice(0, 10);
-
-			const filterTodo = mockData.filter((todoObj) => todoObj.due_date >= nowStr && todoObj.due_date <= nextSevenDayStr);
-			setTodos(filterTodo);
+			filteredTodo = mockData.filter((todoObj) => todoObj.due_date >= nowStr && todoObj.due_date <= nextSevenDayStr);
 		}
+		setTodos(filteredTodo);
 	};
 
 	return (
