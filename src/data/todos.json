@@ -45,7 +45,7 @@
 		"id": 8,
 		"task": "Etiam faucibus cursus urna.",
 		"status": false,
-		"due_date": "2023-06-29"
+		"due_date": "2023-07-03"
 	},
 	{
 		"id": 9,
@@ -117,7 +117,7 @@
 		"id": 20,
 		"task": "Morbi non quam nec dui luctus rutrum.",
 		"status": false,
-		"due_date": "2023-07-11"
+		"due_date": "2023-07-03"
 	},
 	{
 		"id": 21,
@@ -147,7 +147,7 @@
 		"id": 25,
 		"task": "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla.",
 		"status": false,
-		"due_date": "2023-07-02"
+		"due_date": "2023-07-03"
 	},
 	{
 		"id": 26,

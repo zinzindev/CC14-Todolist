@@ -34,7 +34,7 @@ $grey: rgb(234, 234, 234);
 .checkbox__icon {
 	display: none;
 	font-size: 12px;
-} 
+}
 
 .checkbox__icon__done {
 	display: inline;
@@ -63,4 +63,9 @@ $grey: rgb(234, 234, 234);
 
 .done {
 	text-decoration: line-through;
+}
+
+.date__text {
+	color: gray;
+	font-size: 12px;
 }

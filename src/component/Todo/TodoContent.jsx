@@ -1,22 +1,13 @@
-import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { TodoHeader } from './TodoHeader';
 import { AddTodo } from './AddTodo';
 import { TodoLists } from './TodoLists';
-import mockData from '../../data/todos.json';
 
-export function TodoContent() {
+export function TodoContent({todos, setTodos}) {
 	// logic
-	const [todos, setTodos] = useState(mockData);
-
 	const handleAddTodo = (newTask) => {
 		// มี new todo
-		// let newTodoObj1 = {
-		// 	id: crypto.randomUUID(),
-		// 	task: 'DoHw',
-		// 	status: false,
-		// 	due_date: '',
-		// };
+		// let newTodoObj1 = { id: crypto.randomUUID(), task: 'DoHw', status: false, due_date: '', };
 		let newTodoObj = { id: uuidv4(), task: newTask, status: false, due_date: '' };
 
 		// สร้าง State ใหม่
@@ -65,10 +56,10 @@ export function TodoContent() {
 
 	// ui
 	return (
-		<main className='content'> 
+		<main className='content'>
 			<TodoHeader />
 			<AddTodo onAddTodo={handleAddTodo} />
-			<TodoLists todos  ={todos} onEditTodo={handleEditTodo} onDeleteTodo={handleDelete} />
+			<TodoLists todos={todos} onEditTodo={handleEditTodo} onDeleteTodo={handleDelete} />
 		</main>
 	);
 }
