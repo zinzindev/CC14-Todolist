@@ -10,6 +10,7 @@ import allTodoMock from '../data/todos.json';
 
 function App() {
 	const [todos, setTodos] = useState(allTodoMock);
+	const [filterList, setFilterList] = useState(allTodoMock);
 
 	// Filter Todo
 
@@ -30,11 +31,12 @@ function App() {
 			);
 		}
 		setTodos(filteredTodo);
+		setFilterList(filteredTodo);
 	};
 
 	// Search Todo
 	const handleSearch = (searchText) => {
-		const newTodo = allTodoMock.filter((todoObj) => todoObj.task.includes(searchText));
+		const newTodo = filterList.filter((todoObj) => todoObj.task.includes(searchText));
 		setTodos(newTodo);
 	};
 
