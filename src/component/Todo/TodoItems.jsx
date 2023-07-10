@@ -36,7 +36,7 @@ export function TodoItems({ todo, onEditTodo, onDeleteTodo }) {
 					</p>
 
 					{/* <p>{todo.due_date}</p> */}
-					<span className={styles.date__text}>{getFormatDate(todo.due_date)}</span>
+					<span className={styles.date__text}>{getFormatDate(todo.date)}</span>
 
 					<div className={styles.edit__icon} onClick={handleOpenEditMode}>
 						<HiPencil />

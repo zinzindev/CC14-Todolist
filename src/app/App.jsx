@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import { getSevenDayRange } from '../utils/DateUtils';
 import { Header } from '../component/Header';
@@ -6,47 +7,75 @@ import { Sidebar } from '../component/Sidebar';
 import { TodoContent } from '../component/Todo/TodoContent';
 
 import './App.scss';
-import allTodoMock from '../data/todos.json';
+// import allTodoMock from '../data/todos.json';
 
 function App() {
-	const [todos, setTodos] = useState(allTodoMock);
-	const [filterList, setFilterList] = useState(allTodoMock);
+	// ## LOGIC : HOOK
+	const [todos, setTodos] = useState([]); // Original todos
+	const [filterList, setFilterList] = useState([]); // Filter todos
 
+	useEffect(() => {
+		// Run after DID MOUNT
+
+		axios({
+			method: 'get',
+			url: 'http://localhost:8080/todos',
+		})
+			.then((response) => {
+				console.log(response.status);
+				// console.log(response);
+				// console.log(response.data);
+				console.log(response.data.todos);
+
+				let todoList = response.data.todos;
+				setTodos(todoList);
+				setFilterList(todoList);
+			})
+			.catch((error) => {
+				console.log(error.response.status);
+			});
+	}, []);
+
+	// ## LOGIC : FUNCTION
 	// Filter Todo
-
 	const handleFilterLists = (index) => {
 		// index == 0 : All
 		// index == 1 : today
 		// index == 2 : next 7
 
 		const [nowStr, nextSevenDayStr] = getSevenDayRange();
-		let filteredTodo = [...allTodoMock];
+		let filteredTodo = [...todos];
 
 		//FILTER LOGIC: Schemo for fillter '2023-04-29' == YYYY-MM-DD
-		if (index === 1) {
-			filteredTodo = allTodoMock.filter((todoObj) => todoObj.due_date === nowStr);
+		if (index === 0) {
+			setFilterList(todos);
+		} else if (index === 1) {
+			filteredTodo = todos.filter((todoObj) => todoObj.date === nowStr);
+			setFilterList(filteredTodo);
 		} else if (index === 2) {
-			filteredTodo = allTodoMock.filter(
-				(todoObj) => todoObj.due_date >= nowStr && todoObj.due_date <= nextSevenDayStr
+			filteredTodo = todos.filter(
+				(todoObj) => todoObj.date > nowStr && todoObj.date <= nextSevenDayStr
 			);
+			setFilterList(filteredTodo);
 		}
-		setTodos(filteredTodo);
-		setFilterList(filteredTodo);
+		// setTodos (filteredTodo);
+		// setFilterList(filteredTodo);
 	};
 
 	// Search Todo
 	const handleSearch = (searchText) => {
-		const newTodo = filterList.filter((todoObj) =>
+		const newTodo = todos.filter((todoObj) =>
 			todoObj.task.toLocaleLowerCase().includes(searchText.toLocaleLowerCase())
 		);
-		setTodos(newTodo);
+		// setTodos(newTodo);
+		setFilterList(newTodo);
 	};
 
 	return (
 		<div className='container'>
 			<Header onSearchText={handleSearch} />
 			<Sidebar onSetectTab={handleFilterLists} />
-			<TodoContent todos={todos} setTodos={setTodos} />
+			<TodoContent todos={filterList} setTodos={setTodos} />
 		</div>
 	);
 }
