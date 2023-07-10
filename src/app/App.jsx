@@ -17,23 +17,37 @@ function App() {
 	useEffect(() => {
 		// Run after DID MOUNT
 
-		axios({
-			method: 'get',
-			url: 'http://localhost:8080/todos',
-		})
-			.then((response) => {
-				console.log(response.status);
-				// console.log(response);
-				// console.log(response.data);
-				console.log(response.data.todos);
+		// axios({
+		// 	method: 'get',
+		// 	url: 'http://localhost:8080/todos',
+		// })
+		// 	.then((response) => {
+		// 		console.log(response.status);
+		// 		// console.log(response);
+		// 		// console.log(response.data);
+		// 		console.log(response.data.todos);
 
+		// 		let todoList = response.data.todos;
+		// 		setTodos(todoList);
+		// 		setFilterList(todoList);
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log(error.response.status);
+		// 	});
+
+		async function fetchAllTodo() {
+			try {
+				// let response = await axios({ method: 'GET', url: 'http://localhost:8080/todos' });
+				let response = await axios.get('http://localhost:8080/todos');
 				let todoList = response.data.todos;
 				setTodos(todoList);
 				setFilterList(todoList);
-			})
-			.catch((error) => {
+			} catch (error) {
 				console.log(error.response.status);
-			});
+			}
+		}
+
+		fetchAllTodo();
 	}, []);
 
 	// ## LOGIC : FUNCTION
