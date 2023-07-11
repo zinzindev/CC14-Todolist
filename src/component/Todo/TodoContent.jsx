@@ -12,17 +12,22 @@ export function TodoContent({ todos, setTodos, setFilterList }) {
 		console.log({ ...updateObj });
 		//  Modified Array
 		// #1 Findindex
+		console.log(todoId);
 		const foundedIndex = todos.findIndex((todoObj) => todoObj.id === todoId);
+		console.log(foundedIndex);
 
 		// Not founded
 		if (foundedIndex === -1) return;
 
 		// Founded
 		const newTodos = [...todos];
-		//  let oldTodoObj= newTodos[foundIndex];
-		// oldTodoObj.task = newTask;
+
+		// newTodos[foundedIndex] = Object.assign({}, newTodos[foundedIndex], updateObj)
 		newTodos[foundedIndex] = { ...newTodos[foundedIndex], ...updateObj };
+
+		//console.log(newTodos[foundedIndex]);
 		setTodos(newTodos);
+		setFilterList(newTodos);
 	};
 
 	const handleDelete = (todoId) => {

@@ -12,8 +12,22 @@ export function TodoItems({ todo, onEditTodo, onDeleteTodo }) {
 	//  Check === Done === todo.status == true
 	const [isEdit, setIsEdit] = useState(false);
 
-	const handleToggleCheck = () => {
-		onEditTodo(todo.id, { status: !todo.status }); // handleEditTodo(todo.id, { status: !todo.status })
+	const updateTodoStatus = async () => {
+		try {
+			// SEND Request
+			// let updateTodo = Object.assign({}, todo, { status: !todo.status});
+			let todoRequestObj = { ...todo, status: !todo.status };
+			let response = await axios.put(`http://localhost:8080/todos/${todo.id}`, todoRequestObj);
+
+			// SYNC State in Riact
+			let updatedTodo = response.data.todo;
+			// onEditTodo(updatedTodo.id, updatedTodo);
+			onEditTodo(updatedTodo.id, {status: updatedTodo.status});
+		} catch (error) {
+			console.log(error.response.status);
+		}
+
+		// onEditTodo(todo.id, { status: !todo.status }); // handleEditTodo(todo.id, { status: !todo.status })
 	};
 
 	const handleOpenEditMode = () => {
@@ -30,7 +44,7 @@ export function TodoItems({ todo, onEditTodo, onDeleteTodo }) {
 		<>
 			{!isEdit ? (
 				<li className={styles.todo__item__container}>
-					<div className={styles.checkbox__container} onClick={handleToggleCheck}>
+					<div className={styles.checkbox__container} onClick={updateTodoStatus}>
 						<HiCheck className={checkboxStyle} />
 					</div>
 

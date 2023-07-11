@@ -9,7 +9,7 @@ TodoForm.propTypes = {
 	onSetIsShowForm: PropTypes.func.isRequired,
 	onEditTodo: PropTypes.func,
 	todo: PropTypes.oneOfType([PropTypes.object]),
-	setTodos: PropTypes.string,
+	setTodos: PropTypes.func,
 	setFilterList: PropTypes.func
 };
 
