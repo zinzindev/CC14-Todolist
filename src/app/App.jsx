@@ -14,27 +14,8 @@ function App() {
 	const [todos, setTodos] = useState([]); // Original todos
 	const [filterList, setFilterList] = useState([]); // Filter todos
 
-	useEffect(() => {
+ 	useEffect(() => {
 		// Run after DID MOUNT
-
-		// axios({
-		// 	method: 'get',
-		// 	url: 'http://localhost:8080/todos',
-		// })
-		// 	.then((response) => {
-		// 		console.log(response.status);
-		// 		// console.log(response);
-		// 		// console.log(response.data);
-		// 		console.log(response.data.todos);
-
-		// 		let todoList = response.data.todos;
-		// 		setTodos(todoList);
-		// 		setFilterList(todoList);
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log(error.response.status);
-		// 	});
-
 		async function fetchAllTodo() {
 			try {
 				// let response = await axios({ method: 'GET', url: 'http://localhost:8080/todos' });
@@ -89,9 +70,9 @@ function App() {
 		<div className='container'>
 			<Header onSearchText={handleSearch} />
 			<Sidebar onSetectTab={handleFilterLists} />
-			<TodoContent todos={filterList} setTodos={setTodos} />
+			<TodoContent todos={filterList} setTodos={setTodos} setFilterList={setFilterList} />
 		</div>
 	);
-}
+} 
 
 export default App;

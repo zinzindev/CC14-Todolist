@@ -1,26 +1,48 @@
 import { useState } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
+
 import styles from './TodoForm.module.scss';
 
 TodoForm.propTypes = {
 	submitText: PropTypes.string.isRequired,
 	onSetIsShowForm: PropTypes.func.isRequired,
-	onAddTodo: PropTypes.func,
 	onEditTodo: PropTypes.func,
 	todo: PropTypes.oneOfType([PropTypes.object]),
+	setTodos: PropTypes.string,
+	setFilterList: PropTypes.func
 };
 
 // TodoFrom => call in 2 Mode
 // Mode-1: Add
 // Mode-2: Edit
-export function TodoForm({ onSetIsShowForm, submitText, todo, onAddTodo, onEditTodo }) {
+export function TodoForm({
+	onSetIsShowForm,
+	submitText,
+	todo,
+	onEditTodo,
+	setTodos,
+	setFilterList,
+}) {
 	// #1: Logic-Section
-	/* The line `const [task, setTask] = useState(todo?.task || '');` is using the `useState` hook to
-	create a state variable called `task` and a corresponding setter function called `setTask`. The
-	initial value of `task` is set to `todo?.task` if it exists, otherwise it is set to an empty string
-	(`''`). */
 	const [task, setTask] = useState(todo?.task || '');
 	const [isError, setIsError] = useState(false);
+
+	const createTodo = async (todoObj) => {
+		try {
+			let response = await axios.post('http://localhost:8080/todos', todoObj);
+
+			console.log(response.status);
+			console.log(response.data);
+
+			//respone new todo
+			//setFilterLisst, setTodo
+			setTodos((current) => [response.data.todo, ...current]);
+			setFilterList((current) => [response.data.todo, ...current]);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -38,8 +60,15 @@ export function TodoForm({ onSetIsShowForm, submitText, todo, onAddTodo, onEditT
 		// onAddTodo(task); // from <TodoContent />
 
 		// onEditTodo(todo.id, { task: task });
-		if (todo) onEditTodo(todo.id, { task }); // send => 1.todoid 2.newTaskObj
-		else onAddTodo(task);
+		if (todo) {
+			onEditTodo(todo.id, { task }); // send => 1.todoid 2.newTaskObj
+		} else {
+			// send axios
+			let now = new Date().toISOString().slice(0, 10);
+			let todoObj = { task: task, status: false, date: now };
+
+			createTodo(todoObj); // send axios & modified internal state
+ 		}
 
 		// จบ AddMode
 		onSetIsShowForm(false);
@@ -56,7 +85,12 @@ export function TodoForm({ onSetIsShowForm, submitText, todo, onAddTodo, onEditT
 	// #2: UI-Section
 	return (
 		<form className={styles.todo__form__container} onSubmit={handleSubmit}>
-			<input className={styles.todo__form__input} placeholder='Task Name' value={task} onChange={handleChange} />
+			<input
+				className={styles.todo__form__input}
+				placeholder='Task Name'
+				value={task}
+				onChange={handleChange}
+			/>
 			<div className={styles.todo__form__footer}>
 				{isError && <p className={styles.todo__error}>Task Name is required</p>}
 				<div className={styles.todo__form__buttons}>
